@@ -2,7 +2,7 @@ package jsonrpc_test
 
 import (
 	"bytes"
-	"errors"
+	"fmt"
 	"io"
 )
 
@@ -19,7 +19,7 @@ func (e *expectWriter) Write(bs []byte) (int, error) {
 		return 0, io.EOF
 	default:
 		if bytes.Compare(bs, e.expected) != 0 {
-			e.err = errors.New("incorrect write")
+			e.err = fmt.Errorf("incorrect write %q", bs)
 		}
 		close(e.done)
 		return len(bs), nil

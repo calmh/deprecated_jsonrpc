@@ -9,7 +9,7 @@ that the first parameter is a []string containing the tags. It may be nil.
 var ProceraDialect = Dialect{proceraRequest, proceraNotification}
 
 func proceraRequest(id int, method string, params []interface{}) map[string]interface{} {
-	tags := params[0].([]string)
+	tags := params[0]
 	params = params[1:]
 	return map[string]interface{}{
 		"id":     id,
@@ -20,7 +20,7 @@ func proceraRequest(id int, method string, params []interface{}) map[string]inte
 }
 
 func proceraNotification(method string, params []interface{}) map[string]interface{} {
-	tags := params[0].([]string)
+	tags := params[0]
 	params = params[1:]
 	return map[string]interface{}{
 		"method": method,
