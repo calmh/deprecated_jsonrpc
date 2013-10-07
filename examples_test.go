@@ -6,7 +6,7 @@ import (
 	"net"
 )
 
-func Example_NewConnection() {
+func ExampleConnection() {
 	// Connect to a remote JSON-RPC server
 
 	conn, err := net.Dial("tcp", "svr.example.com:3994")
