@@ -122,6 +122,7 @@ func TestWriteError(t *testing.T) {
 
 	c := jsonrpc.NewConnection(newReadWriter(in, out), jsonrpc.StandardDialect)
 	login := c.Request("system.login")
+	ping := c.Notification("ping")
 
 	_, err := login("admin", "test")
 	if err != nil {
@@ -142,6 +143,12 @@ func TestWriteError(t *testing.T) {
 	if err != io.EOF {
 		t.Errorf("unexpected non-EOF error %#v", err)
 	}
+
+	// Likewise
+	err = ping()
+	if err != io.EOF {
+		t.Errorf("unexpected non-EOF error %#v", err)
+	}
 }
 
 func TestReadJSONError(t *testing.T) {
@@ -150,6 +157,7 @@ func TestReadJSONError(t *testing.T) {
 
 	c := jsonrpc.NewConnection(newReadWriter(in, &out), jsonrpc.StandardDialect)
 	login := c.Request("system.login")
+	ping := c.Notification("ping")
 
 	rc, err := login("admin", "test")
 	if err != nil {
@@ -166,6 +174,12 @@ func TestReadJSONError(t *testing.T) {
 
 	// This write will hit the error set previously
 	_, err = login("admin", "test")
+	if err == nil {
+		t.Errorf("unexpected nil error")
+	}
+
+	// Likewise
+	err = ping()
 	if err == nil {
 		t.Errorf("unexpected nil error")
 	}
