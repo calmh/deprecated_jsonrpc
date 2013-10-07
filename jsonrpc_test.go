@@ -25,8 +25,8 @@ func TestErrorResponse(t *testing.T) {
 
 	res := <-rc
 
-	if res.Id != 0 {
-		t.Errorf("incorrect response Id %d != %d", res.Id, 0)
+	if res.ID != 0 {
+		t.Errorf("incorrect response ID %d != %d", res.ID, 0)
 	}
 	if res.Result != nil {
 		t.Errorf("incorrect response Result %v != %v", res.Result, nil)
@@ -61,8 +61,8 @@ func TestListResponse(t *testing.T) {
 
 	res := <-rc
 
-	if res.Id != 0 {
-		t.Errorf("incorrect response Id %d != %d", res.Id, 0)
+	if res.ID != 0 {
+		t.Errorf("incorrect response ID %d != %d", res.ID, 0)
 	}
 	if res.Error != nil {
 		t.Errorf("unexpected response Error %v", res.Error)
@@ -98,8 +98,8 @@ func TestMapResponse(t *testing.T) {
 
 	res := <-rc
 
-	if res.Id != 2 {
-		t.Errorf("incorrect response Id %d != %d", res.Id, 2)
+	if res.ID != 2 {
+		t.Errorf("incorrect response ID %d != %d", res.ID, 2)
 	}
 	if res.Error != nil {
 		t.Errorf("unexpected response Error %v", res.Error)
