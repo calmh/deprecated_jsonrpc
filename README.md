@@ -7,6 +7,11 @@ is supported, while it is also possible to implement vendor specific dialects.
 The client is thread safe, i.e. request and notification functions can be
 called from any goroutine.
 
+Documentation
+-------------
+
+http://godoc.org/github.com/calmh/jsonrpc
+
 Example
 -------
 
