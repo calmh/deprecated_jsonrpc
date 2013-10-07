@@ -47,8 +47,15 @@ func ExampleConnection() {
 	// does not matter in which order the server returned the responses.
 
 	var resp jsonrpc.Response
-	resp = <-pingRc
+	var ok bool
+	resp, ok = <-pingRc
+	if !ok {
+		panic("read error reading response")
+	}
 	fmt.Printf("%v\n", resp)
-	resp = <-helloRc
+	resp, ok = <-helloRc
+	if !ok {
+		panic("read error reading response")
+	}
 	fmt.Printf("%v\n", resp)
 }

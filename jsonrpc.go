@@ -66,13 +66,19 @@ func NewConnection(rw io.ReadWriter, dialect Dialect) *Connection {
 	return conn
 }
 
-// A Request function performs a request on the JSON-RPC server when called and
-// returns a channel where the response may be read. The response object that
-// is read from the channel may contain an error from the server. A nil channel
-// and an error is returned if the request could not be sent due to
-// communication problems. The meaning of the arguments to the request function
-// is defined by the Dialect, but in the standard dialect these are simply
-// sent verbatim as the method arguments.
+/*
+A Request function performs a request on the JSON-RPC server when called and
+returns a channel where the response may be read.  A nil channel and an error
+is returned if the request could not be sent due to communication problems.
+
+The response object that is sent on the channel may contain an error from the
+server. The result channel is closed in the case of a read error after sending
+the request but before recieving the response.
+
+The meaning of the arguments to the request function is defined by the Dialect,
+but in the standard dialect these are simply sent verbatim as the method
+arguments.
+*/
 type Request func(...interface{}) (<-chan Response, error)
 
 // Request returns a new request function for use over the channel.
@@ -99,7 +105,7 @@ func (c *Connection) Request(method string) Request {
 }
 
 // A Notification function performs a notification on the JSON-RPC server when
-// called.  An error is returned if the request could not be sent due to
+// called. An error is returned if the request could not be sent due to
 // communication problems. The meaning of the arguments to the request function
 // is defined by the Dialect, but in the standard dialect these are simply sent
 // verbatim as the method arguments.
