@@ -1,4 +1,4 @@
-package jsonrpc
+package jsonrpc // import "github.com/calmh/deprecated_jsonrpc"
 
 import (
 	"encoding/json"
